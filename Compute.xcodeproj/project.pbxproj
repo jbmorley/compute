@@ -43,6 +43,7 @@
 		D80E8CF0251B0862001A9FCA /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C4E251B0862001A9FCA /* DDAbstractDatabaseLogger.m */; };
 		D80E8CF1251B0862001A9FCA /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C4F251B0862001A9FCA /* DDFileLogger.m */; };
 		D80E8CF2251B0862001A9FCA /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C52251B0862001A9FCA /* GCDAsyncSocket.m */; };
+		D8E1599B251BC3D3009D8A59 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1599A251BC3D3009D8A59 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		D80E8C52251B0862001A9FCA /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		D80E8C54251B0862001A9FCA /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		D80E8D23251B09D1001A9FCA /* Compute-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Compute-Bridging-Header.h"; sourceTree = "<group>"; };
+		D8E1599A251BC3D3009D8A59 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,12 +190,13 @@
 		D80E8B14251B083A001A9FCA /* Compute */ = {
 			isa = PBXGroup;
 			children = (
+				D80E8B19251B083B001A9FCA /* Assets.xcassets */,
+				D80E8D23251B09D1001A9FCA /* Compute-Bridging-Header.h */,
 				D80E8B15251B083A001A9FCA /* ComputeApp.swift */,
 				D80E8B17251B083A001A9FCA /* ContentView.swift */,
-				D80E8B19251B083B001A9FCA /* Assets.xcassets */,
 				D80E8B1E251B083B001A9FCA /* Info.plist */,
 				D80E8B1B251B083B001A9FCA /* Preview Content */,
-				D80E8D23251B09D1001A9FCA /* Compute-Bridging-Header.h */,
+				D8E1599A251BC3D3009D8A59 /* SettingsView.swift */,
 			);
 			path = Compute;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				D80E8C76251B0862001A9FCA /* HTTPFileResponse.m in Sources */,
 				D80E8B16251B083A001A9FCA /* ComputeApp.swift in Sources */,
 				D80E8CF1251B0862001A9FCA /* DDFileLogger.m in Sources */,
+				D8E1599B251BC3D3009D8A59 /* SettingsView.swift in Sources */,
 				D80E8C7A251B0862001A9FCA /* HTTPConnection.m in Sources */,
 				D80E8C86251B0862001A9FCA /* DAVConnection.m in Sources */,
 				D80E8C7D251B0862001A9FCA /* MultipartFormDataParser.m in Sources */,

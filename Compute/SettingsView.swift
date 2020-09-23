@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SettingsView.swift
 //  Compute
 //
 // Copyright (c) 2020 Jason Morley
@@ -25,38 +25,34 @@
 
 import SwiftUI
 
-enum Sheet {
-    case settings
+extension String: Identifiable {
+    public var id: String {
+        return self
+    }
 }
 
-extension Sheet: Identifiable {
-    public var id: Sheet { self }
-}
+struct SettingsView: View {
 
-struct ContentView: View {
+    @Environment(\.presentationMode) var presentationMode
 
     @ObservedObject var manager: Manager
-    @State var sheet: Sheet?
-
-    func sheet(sheet: Sheet) -> some View {
-        switch sheet {
-        case .settings:
-            return SettingsView(manager: manager)
-        }
-    }
 
     var body: some View {
         NavigationView {
-            VStack {
-                Text(manager.address ?? "")
-                    .padding()
-                Spacer()
+            Form {
+                Section(header: Text("Locations")) {
+                    ForEach(manager.locations) { location in
+                        HStack {
+                            Text(location)
+                        }
+                    }
+                }
             }
-            .navigationTitle("Compute")
-            .navigationBarItems(leading: Button("Settings", action: {
-                sheet = .settings
+            .navigationBarTitle("Settings", displayMode: .inline)
+            .navigationBarItems(trailing: Button("Done", action: {
+                presentationMode.wrappedValue.dismiss()
             }))
-            .sheet(item: $sheet, content: self.sheet)
         }
     }
+
 }
