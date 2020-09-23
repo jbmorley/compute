@@ -12,7 +12,13 @@ struct ContentView: View {
     @ObservedObject var manager: Manager
 
     var body: some View {
-        Text(manager.address ?? "")
-            .padding()
+        NavigationView {
+            VStack {
+                Text(manager.address ?? "")
+                    .padding()
+                Spacer()
+            }
+            .navigationTitle("Compute")
+        }
     }
 }
