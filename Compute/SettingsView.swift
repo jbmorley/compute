@@ -46,6 +46,9 @@ struct SettingsView: View {
                             Text(location)
                         }
                     }
+                    Button("Add Location...") {
+                        print("Add location!")
+                    }
                 }
             }
             .navigationBarTitle("Settings", displayMode: .inline)
