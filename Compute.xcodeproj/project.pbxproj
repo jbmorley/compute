@@ -47,6 +47,7 @@
 		D8E159A3251BCCA0009D8A59 /* FilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */; };
 		D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */; };
 		D8E159B0251BCF07009D8A59 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159AF251BCF07009D8A59 /* Server.swift */; };
+		D8E159B6251C1B94009D8A59 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159B5251C1B94009D8A59 /* UIDevice+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerView.swift; sourceTree = "<group>"; };
 		D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		D8E159AF251BCF07009D8A59 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		D8E159B5251C1B94009D8A59 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 		D80E8B14251B083A001A9FCA /* Compute */ = {
 			isa = PBXGroup;
 			children = (
+				D8E159B4251C1B7F009D8A59 /* Extensions */,
 				D80E8B19251B083B001A9FCA /* Assets.xcassets */,
 				D80E8D23251B09D1001A9FCA /* Compute-Bridging-Header.h */,
 				D80E8B15251B083A001A9FCA /* ComputeApp.swift */,
@@ -204,7 +207,6 @@
 				D80E8B1B251B083B001A9FCA /* Preview Content */,
 				D8E1599A251BC3D3009D8A59 /* SettingsView.swift */,
 				D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */,
-				D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */,
 				D8E159AF251BCF07009D8A59 /* Server.swift */,
 			);
 			path = Compute;
@@ -384,6 +386,15 @@
 			path = CocoaAsyncSocket;
 			sourceTree = "<group>";
 		};
+		D8E159B4251C1B7F009D8A59 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D8E159B5251C1B94009D8A59 /* UIDevice+Extensions.swift */,
+				D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -520,6 +531,7 @@
 				D80E8C87251B0862001A9FCA /* DELETEResponse.m in Sources */,
 				D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */,
 				D80E8CEB251B0862001A9FCA /* ContextFilterLogFormatter.m in Sources */,
+				D8E159B6251C1B94009D8A59 /* UIDevice+Extensions.swift in Sources */,
 				D80E8B18251B083A001A9FCA /* ContentView.swift in Sources */,
 				D80E8C79251B0862001A9FCA /* HTTPMessage.m in Sources */,
 				D80E8C88251B0862001A9FCA /* DAVResponse.m in Sources */,
