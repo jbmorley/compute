@@ -25,55 +25,6 @@
 
 import SwiftUI
 
-enum BookmarkError: Error {
-    case invalidIdentifier
-}
-
-class Bookmark: Identifiable, Equatable {
-
-    static func == (lhs: Bookmark, rhs: Bookmark) -> Bool {
-        return lhs.id == rhs.id
-    }
-
-    let id: UUID
-    let source: URL
-    let destination: URL
-    var name: String { destination.lastPathComponent }
-
-    init(root: URL, destination: URL) throws {
-        id = UUID()
-        self.source = root.appendingPathComponent(id.uuidString)
-        self.destination = destination
-        try destination.prepareForSecureAccess()
-    }
-
-    init(source: URL) throws {
-        guard let id = UUID(uuidString: source.lastPathComponent) else {
-            throw BookmarkError.invalidIdentifier
-        }
-        self.id = id
-        self.source = source
-        self.destination = try URL.resolveBookmark(at: source)
-    }
-
-    func write() throws {
-        let bookmarkData = try destination.bookmarkData(options: .suitableForBookmarkFile,
-                                                        includingResourceValuesForKeys: nil,
-                                                        relativeTo: nil)
-        try URL.writeBookmarkData(bookmarkData, to: source)
-    }
-
-    func link(root: URL) throws {
-        try FileManager.default.createSymbolicLink(at: root.appendingPathComponent(name),
-                                                   withDestinationURL: destination)
-    }
-
-    func unlink(root: URL) throws {
-        try FileManager.default.removeItem(at: root.appendingPathComponent(name))
-    }
-
-}
-
 class Manager: ObservableObject {
 
     var address: String?
@@ -117,9 +68,9 @@ class Manager: ObservableObject {
         server.stop()
     }
 
-    func addLocation(_ location: URL) throws {
+    func addBookmark(to destination: URL) throws {
         self.objectWillChange.send()
-        let bookmark = try Bookmark(root: bookmarksDirectory, destination: location)
+        let bookmark = try Bookmark(root: bookmarksDirectory, destination: destination)
         try bookmark.write()
         try bookmark.link(root: rootDirectory)
         bookmarks.append(bookmark)

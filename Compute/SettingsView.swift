@@ -43,11 +43,11 @@ struct SettingsView: View {
     func sheet(sheet: SettingsSheet) -> some View {
         switch sheet {
         case .filePicker:
-            return FilePickerView(contentTypes: [.folder]) { url in
+            return FilePickerView(contentTypes: [.folder]) { destination in
                 do {
-                    try manager.addLocation(url)
+                    try manager.addBookmark(to: destination)
                 } catch {
-                    print("Failed to save location with error \(error)")
+                    print("Failed to add bookmark with error \(error)")
                 }
             }
         }
@@ -69,7 +69,7 @@ struct SettingsView: View {
                                 try self.manager.removeBookmark(bookmark)
                             }
                         } catch {
-                            print("Failed to remove location with error \(error)")
+                            print("Failed to remove bookmark with error \(error)")
                         }
                     }
                     Button("Add Location...") {
