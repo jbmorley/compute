@@ -25,20 +25,63 @@
 
 import SwiftUI
 
+enum BookmarkError: Error {
+    case invalidIdentifier
+}
+
+class Bookmark: Identifiable, Equatable {
+
+    static func == (lhs: Bookmark, rhs: Bookmark) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    let id: UUID
+    let source: URL
+    let destination: URL
+    var name: String { destination.lastPathComponent }
+
+    init(root: URL, destination: URL) throws {
+        id = UUID()
+        self.source = root.appendingPathComponent(id.uuidString)
+        self.destination = destination
+        try destination.prepareForSecureAccess()
+    }
+
+    init(source: URL) throws {
+        guard let id = UUID(uuidString: source.lastPathComponent) else {
+            throw BookmarkError.invalidIdentifier
+        }
+        self.id = id
+        self.source = source
+        self.destination = try URL.resolveBookmark(at: source)
+    }
+
+    func write() throws {
+        let bookmarkData = try destination.bookmarkData(options: .suitableForBookmarkFile,
+                                                        includingResourceValuesForKeys: nil,
+                                                        relativeTo: nil)
+        try URL.writeBookmarkData(bookmarkData, to: source)
+    }
+
+    func link(root: URL) throws {
+        try FileManager.default.createSymbolicLink(at: root.appendingPathComponent(name),
+                                                   withDestinationURL: destination)
+    }
+
+    func unlink(root: URL) throws {
+        try FileManager.default.removeItem(at: root.appendingPathComponent(name))
+    }
+
+}
+
 class Manager: ObservableObject {
 
     var address: String?
     var server = Server()
+    var bookmarks: [Bookmark] = []
     let documentsDirectory = UIApplication.shared.documentsUrl
     let bookmarksDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("bookmarks")
     let rootDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("root")
-
-    var locations: [URL] {
-        let locations = try? FileManager.default.contentsOfDirectory(at: bookmarksDirectory,
-                                                                     includingPropertiesForKeys: nil,
-                                                                     options: [.skipsHiddenFiles])
-        return locations ?? []
-    }
 
     init() {
         do {
@@ -51,26 +94,22 @@ class Manager: ObservableObject {
     func start() throws {
         UIApplication.shared.isIdleTimerDisabled = true
         address = UIDevice.current.address
+
         let fileManager = FileManager.default
         try fileManager.ensureDirectoryExists(at: bookmarksDirectory)
         try fileManager.ensureDirectoryExists(at: rootDirectory)
         try fileManager.emptyDirectory(at: rootDirectory)
-        try linkLocations()
+
+        bookmarks = try fileManager.contentsOfDirectory(atPath: bookmarksDirectory.path)
+            .map { try Bookmark(source: bookmarksDirectory.appendingPathComponent($0)) }
+
+        // Link the bookmarks to the WebDAV server root.
+        for bookmark in bookmarks {
+            try bookmark.link(root: rootDirectory)
+        }
+
         try server.start(root: rootDirectory)
         print("Listening on http://\(address ?? "unknown"):8080...")
-    }
-
-    /**
-    Link all the locations to the root of the WebDAV server.
-    */
-    func linkLocations() throws {
-        let locations = self.locations
-        for location in locations {
-            let resolvedLocation = try URL.resolveBookmark(at: location)
-            let basename = resolvedLocation.lastPathComponent
-            try FileManager.default.createSymbolicLink(at: rootDirectory.appendingPathComponent(basename),
-                                                       withDestinationURL: resolvedLocation)
-        }
     }
 
     func stop() {
@@ -80,17 +119,17 @@ class Manager: ObservableObject {
 
     func addLocation(_ location: URL) throws {
         self.objectWillChange.send()
-        try location.prepareForSecureAccess()
-        let uuid = NSUUID().uuidString
-        let bookmarkUrl = bookmarksDirectory.appendingPathComponent(uuid)
-        let bookmarkData = try location.bookmarkData(options: .suitableForBookmarkFile,
-                                                     includingResourceValuesForKeys: nil, relativeTo: nil)
-        try URL.writeBookmarkData(bookmarkData, to: bookmarkUrl)
+        let bookmark = try Bookmark(root: bookmarksDirectory, destination: location)
+        try bookmark.write()
+        try bookmark.link(root: rootDirectory)
+        bookmarks.append(bookmark)
     }
 
-    func removeLocation(_ location: URL) throws {
+    func removeBookmark(_ bookmark: Bookmark) throws {
         self.objectWillChange.send()
-        try FileManager.default.removeItem(at: location)
+        try bookmark.unlink(root: rootDirectory)
+        try FileManager.default.removeItem(at: bookmark.source)
+        bookmarks.removeAll { $0 == bookmark }
     }
 
 }

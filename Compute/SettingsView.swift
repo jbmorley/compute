@@ -26,18 +26,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-extension URL: Identifiable {
-
-    public var lastPathComponent: String {
-        assert(self.isFileURL)
-        return (self.path as NSString).lastPathComponent
-    }
-
-    public var id: URL {
-        return self
-    }
-}
-
 enum SettingsSheet {
     case filePicker
 }
@@ -68,20 +56,17 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Locations")) {
-                    ForEach(manager.locations) { location in
-                        HStack {
-                            Text(location.lastPathComponent)
-                        }
+                Section(header: Text("Bookmarks")) {
+                    ForEach(manager.bookmarks) { bookmark in
+                        Text(bookmark.name)
                     }
                     .onDelete { indexSet in
                         do {
-                            let locations = self.manager.locations
-                            let locationsToDelete = indexSet.compactMap { index in
-                                return locations[index]
+                            let bookmarksToDelete = indexSet.compactMap { index in
+                                return self.manager.bookmarks[index]
                             }
-                            try locationsToDelete.forEach { location in
-                                try self.manager.removeLocation(location)
+                            try bookmarksToDelete.forEach { bookmark in
+                                try self.manager.removeBookmark(bookmark)
                             }
                         } catch {
                             print("Failed to remove location with error \(error)")

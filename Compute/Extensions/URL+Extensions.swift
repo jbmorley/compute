@@ -47,4 +47,9 @@ extension URL {
         }
     }
 
+    public var lastPathComponent: String {
+        assert(self.isFileURL)
+        return (self.path as NSString).lastPathComponent
+    }
+
 }

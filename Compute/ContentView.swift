@@ -48,7 +48,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text(manager.address ?? "")
+                Text("http://\(manager.address ?? "unknown"):8080")
                     .padding()
                 Spacer()
             }
