@@ -26,68 +26,44 @@
 import SwiftUI
 
 func getIPAddress() -> String? {
-       var address: String?
-       var ifaddr: UnsafeMutablePointer<ifaddrs>? = nil
-       if getifaddrs(&ifaddr) == 0 {
-           var ptr = ifaddr
-           while ptr != nil {
-               defer { ptr = ptr?.pointee.ifa_next }
+    var address: String?
+    var ifaddr: UnsafeMutablePointer<ifaddrs>? = nil
+    if getifaddrs(&ifaddr) == 0 {
+        var ptr = ifaddr
+        while ptr != nil {
+            defer { ptr = ptr?.pointee.ifa_next }
 
-               let interface = ptr?.pointee
-               let addrFamily = interface?.ifa_addr.pointee.sa_family
-               if addrFamily == UInt8(AF_INET) /* || addrFamily == UInt8(AF_INET6) */ {
+            let interface = ptr?.pointee
+            let addrFamily = interface?.ifa_addr.pointee.sa_family
+            if addrFamily == UInt8(AF_INET) /* || addrFamily == UInt8(AF_INET6) */ {
 
-                     if let name: String = String(cString: (interface?.ifa_name)!), name == "en0" {
-                       var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
-                       getnameinfo(interface?.ifa_addr, socklen_t((interface?.ifa_addr.pointee.sa_len)!), &hostname, socklen_t(hostname.count), nil, socklen_t(0), NI_NUMERICHOST)
-                       address = String(cString: hostname)
-                    }
-               }
-           }
-           freeifaddrs(ifaddr)
-       }
-        return address
-   }
-
-class Server {
-
-    var server: HTTPServer
-
-    init() {
-
-        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let documentsURL = URL(string: documentsDirectory)!
-        let folderURL = documentsURL.appendingPathComponent("Folder")
-        do {
-            try FileManager.default.createDirectory(atPath: folderURL.absoluteString,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
-        } catch {
-            print("Failed to create directory with error \(error)")
+                if let name: String = String(cString: (interface?.ifa_name)!), name == "en0" {
+                    var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                    getnameinfo(interface?.ifa_addr, socklen_t((interface?.ifa_addr.pointee.sa_len)!), &hostname, socklen_t(hostname.count), nil, socklen_t(0), NI_NUMERICHOST)
+                    address = String(cString: hostname)
+                }
+            }
         }
-
-        server = HTTPServer()
-        server.setConnectionClass(DAVConnection.self)
-        server.setPort(8080)
-        server.setType("_http._tcp.")
-        server.setDocumentRoot(documentsDirectory)
+        freeifaddrs(ifaddr)
     }
-
-    func start() throws {
-        try server.start()
-    }
-
-    func stop() {
-        server.stop()
-    }
-
+    return address
 }
 
 class Manager: ObservableObject {
 
-    var server = Server()
+    lazy var server: Server = {
+        return Server(root: documentsUrl())
+    }()
+
     var address: String?
-    var locations = ["Folder One", "Folder Two", "Folder Three"]
+    var locations: [URL] {
+        return (try? FileManager.default.contentsOfDirectory(at: documentsUrl(), includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) ?? []
+    }
+
+    func documentsUrl() -> URL {
+        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        return URL(fileURLWithPath: documentsDirectory)
+    }
 
     init() {
         start()
@@ -109,12 +85,27 @@ class Manager: ObservableObject {
         server.stop()
     }
 
+    func addLocation(_ location: URL) throws {
+        self.objectWillChange.send()
+        try location.prepareForSecureAccess()
+        let uuid = NSUUID().uuidString
+        let bookmarkUrl = documentsUrl().appendingPathComponent(uuid)
+        let bookmarkData = try location.bookmarkData(options: .suitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeTo: nil)
+        try URL.writeBookmarkData(bookmarkData, to: bookmarkUrl)
+        let symlinkUrl = documentsUrl().appendingPathComponent("\(uuid)-symlink")
+        try FileManager.default.createSymbolicLink(at: symlinkUrl, withDestinationURL: location)
+    }
+
+    func removeLocation(_ location: URL) throws {
+        self.objectWillChange.send()
+        try FileManager.default.removeItem(at: location)
+    }
+
 }
 
 @main
 struct ComputeApp: App {
 
-    var controller = Server()
     var manager = Manager()
 
     var body: some Scene {

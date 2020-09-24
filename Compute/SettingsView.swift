@@ -24,11 +24,26 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
-extension String: Identifiable {
-    public var id: String {
+extension URL: Identifiable {
+
+    public var lastPathComponent: String {
+        assert(self.isFileURL)
+        return (self.path as NSString).lastPathComponent
+    }
+
+    public var id: URL {
         return self
     }
+}
+
+enum SettingsSheet {
+    case filePicker
+}
+
+extension SettingsSheet: Identifiable {
+    public var id: SettingsSheet { self }
 }
 
 struct SettingsView: View {
@@ -36,6 +51,21 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
 
     @ObservedObject var manager: Manager
+    @State var sheet: SettingsSheet?
+    @State var url: URL?
+
+    func sheet(sheet: SettingsSheet) -> some View {
+        switch sheet {
+        case .filePicker:
+            return FilePickerView(contentTypes: [.folder]) { url in
+                do {
+                    try manager.addLocation(url)
+                } catch {
+                    print("Failed to save location with error \(error)")
+                }
+            }
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -43,11 +73,24 @@ struct SettingsView: View {
                 Section(header: Text("Locations")) {
                     ForEach(manager.locations) { location in
                         HStack {
-                            Text(location)
+                            Text(location.lastPathComponent)
+                        }
+                    }
+                    .onDelete { indexSet in
+                        do {
+                            let locations = self.manager.locations
+                            let locationsToDelete = indexSet.compactMap { index in
+                                return locations[index]
+                            }
+                            try locationsToDelete.forEach { location in
+                                try self.manager.removeLocation(location)
+                            }
+                        } catch {
+                            print("Failed to remove location with error \(error)")
                         }
                     }
                     Button("Add Location...") {
-                        print("Add location!")
+                        sheet = .filePicker
                     }
                 }
             }
@@ -55,6 +98,7 @@ struct SettingsView: View {
             .navigationBarItems(trailing: Button("Done", action: {
                 presentationMode.wrappedValue.dismiss()
             }))
+            .sheet(item: $sheet, content: sheet)
         }
     }
 
