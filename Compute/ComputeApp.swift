@@ -54,7 +54,6 @@ class Manager: ObservableObject {
         bookmarks = try fileManager.contentsOfDirectory(atPath: bookmarksDirectory.path)
             .map { try Bookmark(source: bookmarksDirectory.appendingPathComponent($0)) }
 
-        // Link the bookmarks to the WebDAV server root.
         for bookmark in bookmarks {
             try bookmark.link(root: rootDirectory)
         }
