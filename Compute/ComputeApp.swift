@@ -34,68 +34,81 @@ extension UIApplication {
 
 }
 
+extension URL {
+
+    static func resolveBookmark(at url: URL) throws -> URL {
+        var isStale = false
+        let bookmarkData = try URL.bookmarkData(withContentsOf: url)
+        let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
+        try url.prepareForSecureAccess()
+        return url
+    }
+
+}
+
+extension FileManager {
+
+    func ensureDirectoryExists(at url: URL) throws {
+        if !fileExists(atPath: url.path) {
+            print("Creating directory '\(url.path)'...")
+            try createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        }
+    }
+
+    func emptyDirectory(at url: URL) throws {
+        for location in try contentsOfDirectory(atPath: url.path) {
+            try removeItem(at: url.appendingPathComponent(location))
+        }
+    }
+
+}
+
 class Manager: ObservableObject {
 
     var address: String?
     var server = Server()
+    let documentsDirectory = UIApplication.shared.documentsUrl
+    let bookmarksDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("bookmarks")
+    let rootDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("root")
 
     var locations: [URL] {
-        return (try? FileManager.default.contentsOfDirectory(at: UIApplication.shared.documentsUrl,
-                                                             includingPropertiesForKeys: nil,
-                                                             options: [.skipsHiddenFiles])) ?? []
+        let locations = try? FileManager.default.contentsOfDirectory(at: bookmarksDirectory,
+                                                                     includingPropertiesForKeys: nil,
+                                                                     options: [.skipsHiddenFiles])
+        return locations ?? []
     }
 
     init() {
-        start()
-    }
-
-    func start() {
-        UIApplication.shared.isIdleTimerDisabled = true
-        address = UIDevice.current.address
-
-        // Check to see if we can follow the symlink
-
-        var resolvedLocation: URL?
-        let locations = self.locations
-        for location in locations {
-
-            // Load the bookmark.
-            do {
-                var isStale = false
-                let bookmarkData = try URL.bookmarkData(withContentsOf: location)
-                let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
-                print("Bookmark URL: \(url)")
-                resolvedLocation = url
-                break
-            }
-            catch {
-                print("Failed to load bookmark data with error \(error)")
-            }
-
-        }
-
-        guard let root = resolvedLocation else {
-            print("Failed to determine a root location")
-            return
-        }
-
-
         do {
-            try root.prepareForSecureAccess()
-            let contents = try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil, options: [])
-            print("Contents = \(contents)")
-        } catch {
-            print("Failed to enumerate path with error \(error)")
-        }
-
-        do {
-            try server.start(root: root)
-            print("Listening on http://\(address ?? "unknown"):8080...")
+            try start()
         } catch {
             print("Failed to start server with error \(error)")
         }
+    }
 
+    func start() throws {
+        UIApplication.shared.isIdleTimerDisabled = true
+        address = UIDevice.current.address
+        let fileManager = FileManager.default
+        try fileManager.ensureDirectoryExists(at: bookmarksDirectory)
+        try fileManager.ensureDirectoryExists(at: rootDirectory)
+        try fileManager.emptyDirectory(at: rootDirectory)
+        try linkLocations()
+        try server.start(root: rootDirectory)
+        print("Listening on http://\(address ?? "unknown"):8080...")
+    }
 
+    /**
+    Link all the locations to the root of the WebDAV server.
+    */
+    func linkLocations() throws {
+        let locations = self.locations
+        for location in locations {
+            let resolvedLocation = try URL.resolveBookmark(at: location)
+            let basename = resolvedLocation.lastPathComponent
+            try FileManager.default.createSymbolicLink(at: rootDirectory.appendingPathComponent(basename),
+                                                       withDestinationURL: resolvedLocation)
+        }
     }
 
     func stop() {
@@ -107,9 +120,9 @@ class Manager: ObservableObject {
         self.objectWillChange.send()
         try location.prepareForSecureAccess()
         let uuid = NSUUID().uuidString
-        let documentsUrl = UIApplication.shared.documentsUrl
-        let bookmarkUrl = documentsUrl.appendingPathComponent(uuid)
-        let bookmarkData = try location.bookmarkData(options: .suitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeTo: nil)
+        let bookmarkUrl = bookmarksDirectory.appendingPathComponent(uuid)
+        let bookmarkData = try location.bookmarkData(options: .suitableForBookmarkFile,
+                                                     includingResourceValuesForKeys: nil, relativeTo: nil)
         try URL.writeBookmarkData(bookmarkData, to: bookmarkUrl)
     }
 
