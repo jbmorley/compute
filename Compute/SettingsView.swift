@@ -49,10 +49,8 @@ extension SettingsSheet: Identifiable {
 struct SettingsView: View {
 
     @Environment(\.presentationMode) var presentationMode
-
     @ObservedObject var manager: Manager
     @State var sheet: SettingsSheet?
-    @State var url: URL?
 
     func sheet(sheet: SettingsSheet) -> some View {
         switch sheet {
