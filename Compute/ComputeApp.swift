@@ -51,7 +51,7 @@ class Manager: ObservableObject {
         address = UIDevice.current.address
         do {
             try server.start()
-            print("Successfully started server!")
+            print("Listening on http://\(address ?? "unknown"):8080...")
         } catch {
             print("Failed to start server with error \(error)")
         }
