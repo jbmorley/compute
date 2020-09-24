@@ -30,6 +30,14 @@ enum URLAccessError: Error {
 
 extension URL {
 
+    static func resolveBookmark(at url: URL) throws -> URL {
+        var isStale = false
+        let bookmarkData = try URL.bookmarkData(withContentsOf: url)
+        let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
+        try url.prepareForSecureAccess()
+        return url
+    }
+
     func prepareForSecureAccess() throws {
         guard startAccessingSecurityScopedResource() else {
             throw URLAccessError.bookmarkCreationFailure

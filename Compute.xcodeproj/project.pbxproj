@@ -43,6 +43,8 @@
 		D80E8CF0251B0862001A9FCA /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C4E251B0862001A9FCA /* DDAbstractDatabaseLogger.m */; };
 		D80E8CF1251B0862001A9FCA /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C4F251B0862001A9FCA /* DDFileLogger.m */; };
 		D80E8CF2251B0862001A9FCA /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C52251B0862001A9FCA /* GCDAsyncSocket.m */; };
+		D8885F5E251D546B00B36653 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */; };
+		D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */; };
 		D8E1599B251BC3D3009D8A59 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1599A251BC3D3009D8A59 /* SettingsView.swift */; };
 		D8E159A3251BCCA0009D8A59 /* FilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */; };
 		D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */; };
@@ -142,6 +144,8 @@
 		D80E8C52251B0862001A9FCA /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		D80E8C54251B0862001A9FCA /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		D80E8D23251B09D1001A9FCA /* Compute-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Compute-Bridging-Header.h"; sourceTree = "<group>"; };
+		D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
+		D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		D8E1599A251BC3D3009D8A59 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerView.swift; sourceTree = "<group>"; };
 		D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -391,6 +395,8 @@
 			children = (
 				D8E159B5251C1B94009D8A59 /* UIDevice+Extensions.swift */,
 				D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */,
+				D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */,
+				D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -528,6 +534,7 @@
 			files = (
 				D8E159B0251BCF07009D8A59 /* Server.swift in Sources */,
 				D80E8C7F251B0862001A9FCA /* HTTPAuthenticationRequest.m in Sources */,
+				D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */,
 				D80E8C87251B0862001A9FCA /* DELETEResponse.m in Sources */,
 				D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */,
 				D80E8CEB251B0862001A9FCA /* ContextFilterLogFormatter.m in Sources */,
@@ -562,6 +569,7 @@
 				D80E8CEA251B0862001A9FCA /* DDASLLogger.m in Sources */,
 				D80E8C7E251B0862001A9FCA /* MultipartMessageHeader.m in Sources */,
 				D80E8CEE251B0862001A9FCA /* DDLog.m in Sources */,
+				D8885F5E251D546B00B36653 /* FileManager+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

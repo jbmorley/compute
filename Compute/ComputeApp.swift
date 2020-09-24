@@ -25,44 +25,6 @@
 
 import SwiftUI
 
-extension UIApplication {
-
-    var documentsUrl: URL {
-        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        return URL(fileURLWithPath: documentsDirectory)
-    }
-
-}
-
-extension URL {
-
-    static func resolveBookmark(at url: URL) throws -> URL {
-        var isStale = false
-        let bookmarkData = try URL.bookmarkData(withContentsOf: url)
-        let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
-        try url.prepareForSecureAccess()
-        return url
-    }
-
-}
-
-extension FileManager {
-
-    func ensureDirectoryExists(at url: URL) throws {
-        if !fileExists(atPath: url.path) {
-            print("Creating directory '\(url.path)'...")
-            try createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-        }
-    }
-
-    func emptyDirectory(at url: URL) throws {
-        for location in try contentsOfDirectory(atPath: url.path) {
-            try removeItem(at: url.appendingPathComponent(location))
-        }
-    }
-
-}
-
 class Manager: ObservableObject {
 
     var address: String?
