@@ -29,15 +29,15 @@ class Server {
 
     var server: HTTPServer
 
-    init(root: URL) {
+    init() {
         server = HTTPServer()
         server.setConnectionClass(DAVConnection.self)
         server.setPort(8080)
         server.setType("_http._tcp.")
-        server.setDocumentRoot(root.path)
     }
 
-    func start() throws {
+    func start(root: URL) throws {
+        server.setDocumentRoot(root.path)
         try server.start()
     }
 

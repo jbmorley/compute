@@ -25,21 +25,24 @@
 
 import SwiftUI
 
+extension UIApplication {
+
+    var documentsUrl: URL {
+        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        return URL(fileURLWithPath: documentsDirectory)
+    }
+
+}
+
 class Manager: ObservableObject {
 
     var address: String?
-
-    lazy var server: Server = {
-        return Server(root: documentsUrl())
-    }()
+    var server = Server()
 
     var locations: [URL] {
-        return (try? FileManager.default.contentsOfDirectory(at: documentsUrl(), includingPropertiesForKeys: nil, options: [.skipsHiddenFiles])) ?? []
-    }
-
-    func documentsUrl() -> URL {
-        let documentsDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        return URL(fileURLWithPath: documentsDirectory)
+        return (try? FileManager.default.contentsOfDirectory(at: UIApplication.shared.documentsUrl,
+                                                             includingPropertiesForKeys: nil,
+                                                             options: [.skipsHiddenFiles])) ?? []
     }
 
     init() {
@@ -49,12 +52,50 @@ class Manager: ObservableObject {
     func start() {
         UIApplication.shared.isIdleTimerDisabled = true
         address = UIDevice.current.address
+
+        // Check to see if we can follow the symlink
+
+        var resolvedLocation: URL?
+        let locations = self.locations
+        for location in locations {
+
+            // Load the bookmark.
+            do {
+                var isStale = false
+                let bookmarkData = try URL.bookmarkData(withContentsOf: location)
+                let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
+                print("Bookmark URL: \(url)")
+                resolvedLocation = url
+                break
+            }
+            catch {
+                print("Failed to load bookmark data with error \(error)")
+            }
+
+        }
+
+        guard let root = resolvedLocation else {
+            print("Failed to determine a root location")
+            return
+        }
+
+
         do {
-            try server.start()
+            try root.prepareForSecureAccess()
+            let contents = try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil, options: [])
+            print("Contents = \(contents)")
+        } catch {
+            print("Failed to enumerate path with error \(error)")
+        }
+
+        do {
+            try server.start(root: root)
             print("Listening on http://\(address ?? "unknown"):8080...")
         } catch {
             print("Failed to start server with error \(error)")
         }
+
+
     }
 
     func stop() {
@@ -66,11 +107,10 @@ class Manager: ObservableObject {
         self.objectWillChange.send()
         try location.prepareForSecureAccess()
         let uuid = NSUUID().uuidString
-        let bookmarkUrl = documentsUrl().appendingPathComponent(uuid)
+        let documentsUrl = UIApplication.shared.documentsUrl
+        let bookmarkUrl = documentsUrl.appendingPathComponent(uuid)
         let bookmarkData = try location.bookmarkData(options: .suitableForBookmarkFile, includingResourceValuesForKeys: nil, relativeTo: nil)
         try URL.writeBookmarkData(bookmarkData, to: bookmarkUrl)
-        let symlinkUrl = documentsUrl().appendingPathComponent("\(uuid)-symlink")
-        try FileManager.default.createSymbolicLink(at: symlinkUrl, withDestinationURL: location)
     }
 
     func removeLocation(_ location: URL) throws {
