@@ -15,6 +15,8 @@ This project is pretty new, so there's only a limited set of things working righ
 - WebDAV server implementation for iOS (built using the wonderful [CocoaHTTPServer](https://github.com/robbiehanson/CocoaHTTPServer)).
 - Ability to select folders to share over the WebDAV server from other file providers (e.g., iCloud Drive, [Working Copy](https://workingcopyapp.com), etc)
 
+Check out the [GitHub Issues](https://github.com/jbmorley/compute/issues) to learn about any known issues, and future ideas and plans.
+
 ## Getting Started
 
 There are a few steps to follow to make use of the app right now:
