@@ -31,7 +31,7 @@ There are a few steps to follow to make use of the app right now:
    git submodule update --init
    ```
 
-4. Open 'Compute.xcodeproj' with the latest [Xcode](https://developer.apple.com/xcode/), compile, and run.
+4. Open 'Compute.xcodeproj' with the latest [Xcode](https://developer.apple.com/xcode/). Compile, and run.
 
 5. To keep things simple, it's a good idea to check that the WebDAV share is working by mounting it using your using your Mac:
 
