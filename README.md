@@ -8,6 +8,39 @@ This project is intended to build on previous work and guides that set about usi
 
 Compute uses a WebDAV server to allow the Raspberry Pi to mount the files on the iPad and act on the iPad, making for a much greater seamless integration between the two systems. Ultimately, the goal is to automatically launch the app and configure the connection when the Raspberry Pi is plugged in to the iPad.
 
+## Status
+
+This project is pretty new, so there's only a limited set of things working right now. It's provably enough to bring some simple utility, but certainly needs a little :
+
+- WebDAV server implementation for iOS (built using the wonderful [CocoaHTTPServer](https://github.com/robbiehanson/CocoaHTTPServer)).
+- Ability to select folders to share over the WebDAV server from other file providers (e.g., iCloud Drive, [Working Copy](https://workingcopyapp.com), etc)
+
+## Getting Started
+
+There are a few steps to follow to make use of the app right now:
+
+1. You'll probably want a keyboard for your iPad; the new [Magic Keyboard](https://www.apple.com/ipad-keyboards/) is great.
+
+2. If you're planning on carrying around your Raspberry Pi then some form of case is also a good idea. Heatsink cases seem to be getting a lot of traction these days and Pimoroni has [some wonderful options](https://shop.pimoroni.com/products/aluminium-heatsink-case-for-raspberry-pi-4) (which you can find on [SparkFun](https://www.sparkfun.com/products/15896) in the US), and if you want to spend a bit more money, Akasa also have [some elegant cases](http://www.akasa.com.tw/update.php?tpl=product/product.list.tpl&type=Fanless%20Chassis&type_sub=Fanless%20Raspberry%20pi).
+
+3. Clone the repository and submodules:
+
+   ```bash
+   git clone git@github.com:jbmorley/compute.git
+   cd compute
+   git submodule update --init
+   ```
+
+4. Open 'Compute.xcodeproj' with the latest [Xcode](https://developer.apple.com/xcode/), compile, and run.
+
+5. To keep things simple, it's a good idea to check that the WebDAV share is working by mounting it using your using your Mac:
+
+   1. With Finder active, type ⌘K (or select Go > Connect to Server... in the menu).
+   2. Enter the address displayed on your iOS app, and click 'Connect'. For example,
+      ![](images/connect-to-server.png)
+   3. If everything's working well, you should see a new mounted volume on your Mac, and you shoudl be able to navigate this in Finder:
+      ![](images/finder.png)
+
 ## Background
 
 There are some great guides which describe the process of configuring a Raspberry Pi to use the iPad's USB-C connection for networking:
