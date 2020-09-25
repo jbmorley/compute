@@ -40,6 +40,7 @@ There are a few steps to follow to make use of the app right now:
       ![](images/connect-to-server.png)
    3. If everything's working well, you should see a new mounted volume on your Mac, and you shoudl be able to navigate this in Finder:
       ![](images/finder.png)
+   4. Once you've confirmed you're able to access your iPads file system using WebDAV, set up your Raspberry Pi to host a network over USB-C as described [here](https://magpi.raspberrypi.org/articles/connect-raspberry-pi-4-to-ipad-pro-with-a-usb-c-cable).
 
 ## Background
 
