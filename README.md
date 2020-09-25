@@ -4,7 +4,7 @@ iOS application for using a Raspberry Pi as a compute module
 
 ## Summary
 
-This project is intended to build on previous work and guides that set about using the [Raspberry Pi](https://www.raspberrypi.org) as an iPad accessory, connecting it over USB-C and then using VNC and SSH to control the Pi. While these solutions are great if your goal is to use a Raspberry Pi, they don't really allow the two systems to interoperate; the iPad essentially acts as a dumb terminal for the Pi; Compute tries to bridge that gap.
+This project is intended to build on previous work and guides that set about using the [Raspberry Pi](https://www.raspberrypi.org) as an iPad accessory, connecting it over USB-C and then using VNC and SSH to control the Pi. While these solutions are great if your goal is to use a Raspberry Pi, they don't really allow the two systems to interoperate; the iPad essentially acts as a dumb terminal for the Pi. Compute tries to bridge that gap.
 
 Compute uses a WebDAV server to allow the Raspberry Pi to mount the files on the iPad and act on the iPad, making for a much greater seamless integration between the two systems. Ultimately, the goal is to automatically launch the app and configure the connection when the Raspberry Pi is plugged in to the iPad.
 
