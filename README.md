@@ -49,20 +49,27 @@ There are a few steps to follow to make use of the app right now:
 
    5. Set up the Raspberry Pi to connect to your iOS device over WebDAV:
 
-      1. Create a new mount point:
+      1. Install `davfs2`
+
+         ```bash
+         sudo apt update
+         sudo apt install davfs2
+         ```
+
+      2. Create a new mount point:
 
          ```bash
          sudo mkdir /mnt/webdav
          ```
 
-      2. Add the following entry to `/etc/fstab`:
+      3. Add the following entry to `/etc/fstab`:
 
          ```
          # iPad
          http://10.55.0.5:8080/ /mnt/webdav davfs _netdev,noauto,user,uid=pi,gid=pi 0 0
          ```
 
-      3. Start the mount:
+      4. Start the mount:
 
          ```
          sudo mount /mnt/webdav
