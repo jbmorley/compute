@@ -38,11 +38,35 @@ There are a few steps to follow to make use of the app right now:
 5. To keep things simple, it's a good idea to check that the WebDAV share is working by mounting it using your using your Mac:
 
    1. With Finder active, type ⌘K (or select Go > Connect to Server... in the menu).
+
    2. Enter the address displayed on your iOS app, and click 'Connect'. For example,
       ![](images/connect-to-server.png)
+      
    3. If everything's working well, you should see a new mounted volume on your Mac, and you shoudl be able to navigate this in Finder:
       ![](images/finder.png)
+      
    4. Once you've confirmed you're able to access your iPads file system using WebDAV, set up your Raspberry Pi to host a network over USB-C as described [here](https://magpi.raspberrypi.org/articles/connect-raspberry-pi-4-to-ipad-pro-with-a-usb-c-cable).
+
+   5. Set up the Raspberry Pi to connect to your iOS device over WebDAV:
+
+      1. Create a new mount point:
+
+         ```bash
+         sudo mkdir /mnt/webdav
+         ```
+
+      2. Add the following entry to `/etc/fstab`:
+
+         ```
+         # iPad
+         http://10.55.0.5:8080/ /mnt/webdav davfs _netdev,noauto,user,uid=pi,gid=pi 0 0
+         ```
+
+      3. Start the mount:
+
+         ```
+         sudo mount /mnt/webdav
+         ```
 
 ## Background
 
