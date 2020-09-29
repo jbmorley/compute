@@ -71,8 +71,25 @@ There are a few steps to follow to make use of the app right now:
 
       4. Start the mount:
 
-         ```
+         ```bash
          sudo mount /mnt/webdav
+         ```
+         
+      5. Install and run the Bluetooth keep-alive server. Unforutnately this requires dropping back to an earlier version of Node.js to address some dependency incompatibilities (see https://github.com/noble/bleno/issues/440):
+      
+         ```bash
+         sudo npm install -g n
+         sudo n 8.9.0
+         ```
+      
+         Once you've done this, clone the repository to the Raspberry Pi, and run the server:
+      
+         ```bash
+         git clone git@github.com:jbmorley/compute.git
+         cd compute
+         git submodule update --init
+         cd raspberry-pi/bluetooth-server
+         sudo node index.js
          ```
 
 ## Background
