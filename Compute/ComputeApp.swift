@@ -25,73 +25,34 @@
 
 import SwiftUI
 
-class Manager: ObservableObject {
-
-    var address: String?
-    var server = Server()
-    var bookmarks: [Bookmark] = []
-    let documentsDirectory = UIApplication.shared.documentsUrl
-    let bookmarksDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("bookmarks")
-    let rootDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("root")
-
-    init() {
-        do {
-            try start()
-        } catch {
-            print("Failed to start server with error \(error)")
-        }
-    }
-
-    func start() throws {
-        UIApplication.shared.isIdleTimerDisabled = true
-        address = UIDevice.current.address
-
-        let fileManager = FileManager.default
-        try fileManager.ensureDirectoryExists(at: bookmarksDirectory)
-        try fileManager.ensureDirectoryExists(at: rootDirectory)
-        try fileManager.emptyDirectory(at: rootDirectory)
-
-        bookmarks = try fileManager.contentsOfDirectory(atPath: bookmarksDirectory.path)
-            .map { try Bookmark(source: bookmarksDirectory.appendingPathComponent($0)) }
-
-        for bookmark in bookmarks {
-            try bookmark.link(root: rootDirectory)
-        }
-
-        try server.start(root: rootDirectory)
-        print("Listening on http://\(address ?? "unknown"):8080...")
-    }
-
-    func stop() {
-        UIApplication.shared.isIdleTimerDisabled = false
-        server.stop()
-    }
-
-    func addBookmark(to destination: URL) throws {
-        self.objectWillChange.send()
-        let bookmark = try Bookmark(root: bookmarksDirectory, destination: destination)
-        try bookmark.write()
-        try bookmark.link(root: rootDirectory)
-        bookmarks.append(bookmark)
-    }
-
-    func removeBookmark(_ bookmark: Bookmark) throws {
-        self.objectWillChange.send()
-        try bookmark.unlink(root: rootDirectory)
-        try FileManager.default.removeItem(at: bookmark.source)
-        bookmarks.removeAll { $0 == bookmark }
-    }
-
-}
-
 @main
 struct ComputeApp: App {
+
+    @Environment(\.scenePhase) private var phase
 
     var manager = Manager()
 
     var body: some Scene {
         WindowGroup {
             ContentView(manager: manager)
+        }
+        .onChange(of: phase) { phase in
+            switch phase {
+            case .active:
+                print("active")
+                do {
+                    try manager.start()
+                    print("started manager")
+                } catch {
+                    print("failed to start server with error \(error)")
+                }
+            case .background:
+                print("background")
+            case .inactive:
+                print("inactive")
+            @unknown default:
+                print("unknown")
+            }
         }
     }
 }

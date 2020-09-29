@@ -46,6 +46,8 @@
 		D8885F5E251D546B00B36653 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */; };
 		D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */; };
 		D8885F68251D60D000B36653 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F67251D60D000B36653 /* Bookmark.swift */; };
+		D8CA2D3C2522F40900594AD1 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CA2D3B2522F40900594AD1 /* BluetoothManager.swift */; };
+		D8CA2D412522F43C00594AD1 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CA2D402522F43C00594AD1 /* Manager.swift */; };
 		D8E1599B251BC3D3009D8A59 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1599A251BC3D3009D8A59 /* SettingsView.swift */; };
 		D8E159A3251BCCA0009D8A59 /* FilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */; };
 		D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */; };
@@ -148,6 +150,8 @@
 		D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F67251D60D000B36653 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		D8CA2D3B2522F40900594AD1 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		D8CA2D402522F43C00594AD1 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		D8E1599A251BC3D3009D8A59 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerView.swift; sourceTree = "<group>"; };
 		D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -215,6 +219,8 @@
 				D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */,
 				D8E159AF251BCF07009D8A59 /* Server.swift */,
 				D8885F67251D60D000B36653 /* Bookmark.swift */,
+				D8CA2D3B2522F40900594AD1 /* BluetoothManager.swift */,
+				D8CA2D402522F43C00594AD1 /* Manager.swift */,
 			);
 			path = Compute;
 			sourceTree = "<group>";
@@ -564,11 +570,13 @@
 				D80E8C76251B0862001A9FCA /* HTTPFileResponse.m in Sources */,
 				D80E8B16251B083A001A9FCA /* ComputeApp.swift in Sources */,
 				D80E8CF1251B0862001A9FCA /* DDFileLogger.m in Sources */,
+				D8CA2D412522F43C00594AD1 /* Manager.swift in Sources */,
 				D8E1599B251BC3D3009D8A59 /* SettingsView.swift in Sources */,
 				D80E8C7A251B0862001A9FCA /* HTTPConnection.m in Sources */,
 				D80E8C86251B0862001A9FCA /* DAVConnection.m in Sources */,
 				D80E8C7D251B0862001A9FCA /* MultipartFormDataParser.m in Sources */,
 				D8E159A3251BCCA0009D8A59 /* FilePickerView.swift in Sources */,
+				D8CA2D3C2522F40900594AD1 /* BluetoothManager.swift in Sources */,
 				D80E8CEA251B0862001A9FCA /* DDASLLogger.m in Sources */,
 				D8885F68251D60D000B36653 /* Bookmark.swift in Sources */,
 				D80E8C7E251B0862001A9FCA /* MultipartMessageHeader.m in Sources */,
