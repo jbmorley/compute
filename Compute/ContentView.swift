@@ -58,5 +58,6 @@ struct ContentView: View {
             }))
             .sheet(item: $sheet, content: self.sheet)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
