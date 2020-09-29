@@ -38,7 +38,9 @@ class WebDAVServer {
 
     func start(root: URL) throws {
         server.setDocumentRoot(root.path)
-        try server.start()
+        if !server.isRunning() {
+            try server.start()
+        }
     }
 
     func stop() {
