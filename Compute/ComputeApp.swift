@@ -39,19 +39,18 @@ struct ComputeApp: App {
         .onChange(of: phase) { phase in
             switch phase {
             case .active:
-                print("active")
+                manager.log.info(message: "app state active")
                 do {
                     try manager.start()
-                    print("started manager")
                 } catch {
-                    print("failed to start server with error \(error)")
+                    manager.log.error(message: "failed to start server with error \(error)")
                 }
             case .background:
-                print("background")
+                manager.log.info(message: "app state background")
             case .inactive:
-                print("inactive")
+                manager.log.info(message: "app state inactive")
             @unknown default:
-                print("unknown")
+                manager.log.info(message: "app state unknown")
             }
         }
     }

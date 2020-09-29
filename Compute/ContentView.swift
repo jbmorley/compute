@@ -27,6 +27,7 @@ import SwiftUI
 
 enum Sheet {
     case settings
+    case logs
 }
 
 extension Sheet: Identifiable {
@@ -42,6 +43,10 @@ struct ContentView: View {
         switch sheet {
         case .settings:
             return SettingsView(manager: manager)
+                .eraseToAnyView()
+        case .logs:
+            return LogView(log: manager.log)
+                .eraseToAnyView()
         }
     }
 
@@ -50,6 +55,9 @@ struct ContentView: View {
             VStack {
                 Text("http://\(manager.address ?? "unknown"):8080")
                     .padding()
+                Button("Logs") {
+                    sheet = .logs
+                }
                 Spacer()
             }
             .navigationTitle("Compute")

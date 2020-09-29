@@ -11,14 +11,18 @@ import SwiftUI
 class Manager: ObservableObject {
 
     var address: String?
-    var server = Server()
-    var bluetoothManager = BluetoothManager()
+    var log: Log
+    var server: WebDAVServer
+    var bluetoothManager: BluetoothManager
     var bookmarks: [Bookmark] = []
     let documentsDirectory = UIApplication.shared.documentsUrl
     let bookmarksDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("bookmarks")
     let rootDirectory = UIApplication.shared.documentsUrl.appendingPathComponent("root")
 
     init() {
+        log = Log()
+        server = WebDAVServer()
+        bluetoothManager = BluetoothManager(log: log)
     }
 
     func start() throws {
@@ -38,9 +42,9 @@ class Manager: ObservableObject {
         }
 
         try server.start(root: rootDirectory)
-        print("listening on http://\(address ?? "unknown"):8080...")
+        log.info(message: "listening on http://\(address ?? "unknown"):8080...")
 
-        print("starting bluetooth manager")
+        log.info(message: "starting bluetooth manager")
         bluetoothManager.start()
     }
 

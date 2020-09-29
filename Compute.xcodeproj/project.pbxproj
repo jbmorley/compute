@@ -43,6 +43,9 @@
 		D80E8CF0251B0862001A9FCA /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C4E251B0862001A9FCA /* DDAbstractDatabaseLogger.m */; };
 		D80E8CF1251B0862001A9FCA /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C4F251B0862001A9FCA /* DDFileLogger.m */; };
 		D80E8CF2251B0862001A9FCA /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D80E8C52251B0862001A9FCA /* GCDAsyncSocket.m */; };
+		D826D4162523A3390095E358 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D4152523A3390095E358 /* Log.swift */; };
+		D826D41B2523A7110095E358 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D41A2523A7110095E358 /* LogView.swift */; };
+		D826D4202523A7530095E358 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D41F2523A7530095E358 /* View+Extensions.swift */; };
 		D8885F5E251D546B00B36653 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */; };
 		D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */; };
 		D8885F68251D60D000B36653 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F67251D60D000B36653 /* Bookmark.swift */; };
@@ -51,7 +54,7 @@
 		D8E1599B251BC3D3009D8A59 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E1599A251BC3D3009D8A59 /* SettingsView.swift */; };
 		D8E159A3251BCCA0009D8A59 /* FilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */; };
 		D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */; };
-		D8E159B0251BCF07009D8A59 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159AF251BCF07009D8A59 /* Server.swift */; };
+		D8E159B0251BCF07009D8A59 /* WebDAVServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159AF251BCF07009D8A59 /* WebDAVServer.swift */; };
 		D8E159B6251C1B94009D8A59 /* UIDevice+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E159B5251C1B94009D8A59 /* UIDevice+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +150,9 @@
 		D80E8C52251B0862001A9FCA /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		D80E8C54251B0862001A9FCA /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		D80E8D23251B09D1001A9FCA /* Compute-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Compute-Bridging-Header.h"; sourceTree = "<group>"; };
+		D826D4152523A3390095E358 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		D826D41A2523A7110095E358 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
+		D826D41F2523A7530095E358 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F67251D60D000B36653 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
@@ -155,7 +161,7 @@
 		D8E1599A251BC3D3009D8A59 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerView.swift; sourceTree = "<group>"; };
 		D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
-		D8E159AF251BCF07009D8A59 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		D8E159AF251BCF07009D8A59 /* WebDAVServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVServer.swift; sourceTree = "<group>"; };
 		D8E159B5251C1B94009D8A59 /* UIDevice+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,10 +223,12 @@
 				D80E8B1B251B083B001A9FCA /* Preview Content */,
 				D8E1599A251BC3D3009D8A59 /* SettingsView.swift */,
 				D8E159A2251BCCA0009D8A59 /* FilePickerView.swift */,
-				D8E159AF251BCF07009D8A59 /* Server.swift */,
+				D8E159AF251BCF07009D8A59 /* WebDAVServer.swift */,
 				D8885F67251D60D000B36653 /* Bookmark.swift */,
 				D8CA2D3B2522F40900594AD1 /* BluetoothManager.swift */,
 				D8CA2D402522F43C00594AD1 /* Manager.swift */,
+				D826D4152523A3390095E358 /* Log.swift */,
+				D826D41A2523A7110095E358 /* LogView.swift */,
 			);
 			path = Compute;
 			sourceTree = "<group>";
@@ -406,6 +414,7 @@
 				D8E159A7251BCCFD009D8A59 /* URL+Extensions.swift */,
 				D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */,
 				D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */,
+				D826D41F2523A7530095E358 /* View+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -541,14 +550,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8E159B0251BCF07009D8A59 /* Server.swift in Sources */,
+				D8E159B0251BCF07009D8A59 /* WebDAVServer.swift in Sources */,
 				D80E8C7F251B0862001A9FCA /* HTTPAuthenticationRequest.m in Sources */,
+				D826D4202523A7530095E358 /* View+Extensions.swift in Sources */,
 				D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */,
 				D80E8C87251B0862001A9FCA /* DELETEResponse.m in Sources */,
 				D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */,
 				D80E8CEB251B0862001A9FCA /* ContextFilterLogFormatter.m in Sources */,
+				D826D41B2523A7110095E358 /* LogView.swift in Sources */,
 				D8E159B6251C1B94009D8A59 /* UIDevice+Extensions.swift in Sources */,
 				D80E8B18251B083A001A9FCA /* ContentView.swift in Sources */,
+				D826D4162523A3390095E358 /* Log.swift in Sources */,
 				D80E8C79251B0862001A9FCA /* HTTPMessage.m in Sources */,
 				D80E8C88251B0862001A9FCA /* DAVResponse.m in Sources */,
 				D80E8C82251B0862001A9FCA /* DDRange.m in Sources */,

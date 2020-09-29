@@ -1,5 +1,5 @@
 //
-//  Server.swift
+//  WebDAVServer.swift
 //  Compute
 //
 //  Copyright (c) 2020 Jason Morley
@@ -25,7 +25,7 @@
 
 import Foundation
 
-class Server {
+class WebDAVServer {
 
     var server: HTTPServer
 

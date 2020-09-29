@@ -32,12 +32,13 @@ extension CBService {
 
 class BluetoothManager: NSObject, ObservableObject {
 
+    var log: Log
     var peripheral: CBPeripheral?
     var central: CBCentralManager?
     var peripherals: Set<CBPeripheral> = Set()
 
-    override init() {
-        print("INIT!")
+    init(log: Log) {
+        self.log = log
     }
 
     func start() {
@@ -55,23 +56,23 @@ extension BluetoothManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch (central.state as CBManagerState) {
         case .unknown:
-            print("manager state: unknown")
+            log.info(message: "bluetooth central manager state: unknown")
         case .resetting:
-            print("manager state: resetting")
+            log.info(message: "bluetooth central manager state: resetting")
         case .unsupported:
-            print("manager state: unsupported")
+            log.info(message: "bluetooth central manager state: unsupported")
         case .unauthorized:
-            print("manager state: unauthorized")
+            log.info(message: "bluetooth central manager state: unauthorized")
         case .poweredOff:
-            print("manager state: poweredOff")
+            log.info(message: "bluetooth central manager state: poweredOff")
         case .poweredOn:
-            print("manager state: poweredOn")
+            log.info(message: "bluetooth central manager state: poweredOn")
             central.scanForPeripherals(withServices: [CBUUID(string: "1802"),
                                                       CBUUID(string: "1803"),
                                                       CBUUID(string: "2A06")],
                                        options: nil)
         @unknown default:
-            print("manager state: default")
+            log.info(message: "bluetooth central manager state: default")
         }
     }
 
@@ -90,22 +91,22 @@ extension BluetoothManager: CBCentralManagerDelegate, CBPeripheralDelegate {
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.delegate = self
-        print("manager did connect to peripheral \(peripheral.displayString)")
+        log.info(message: "bluetooth manager did connect to peripheral \(peripheral.displayString)")
         peripheral.discoverServices([CBUUID(string: "1803")])
     }
 
     func peripheralDidUpdateName(_ peripheral: CBPeripheral) {
-        print("peripheral did update name to '\(peripheral.displayString)'")
+        log.info(message: "peripheral did update name to '\(peripheral.displayString)'")
     }
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         guard error == nil else {
-            print("peripheral failed to discover services with error \(error!)")
+            log.error(message: "peripheral failed to discover services with error \(error!)")
             return
         }
-        print("peripheral did discover services \(peripheral.serviceSummary)")
+        log.info(message: "peripheral did discover services \(peripheral.serviceSummary)")
         guard let service = peripheral.services?.first(where: { $0.isPrimary }) else {
-            print("failed to find required service")
+            log.error(message: "failed to find required service")
             return
         }
         peripheral.discoverCharacteristics([CBUUID(string: "2A06")], for: service)
@@ -113,15 +114,15 @@ extension BluetoothManager: CBCentralManagerDelegate, CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard error == nil else {
-            print("peripheral failed to discover characteristics with error \(error!)")
+            log.error(message: "peripheral failed to discover characteristics with error \(error!)")
             return
         }
-        print("peripheral did discover characteristics \(service.characteristicSummary)")
+        log.info(message: "peripheral did discover characteristics \(service.characteristicSummary)")
         guard let characteristic = service.characteristics?.first(where: { $0.uuid == CBUUID(string: "2A06") }) else {
-            print("failed to find required characteristic")
+            log.error(message: "failed to find required characteristic")
             return
         }
-        print("found characteristic")
+        log.info(message: "found characteristic")
         var data = Data()
         data.append(10)
         peripheral.writeValue(data, for: characteristic, type: .withResponse)
@@ -130,16 +131,16 @@ extension BluetoothManager: CBCentralManagerDelegate, CBPeripheralDelegate {
 
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard error == nil else {
-            print("peripheral failed to update value for characteristic error \(error!)")
+            log.error(message: "peripheral failed to update value for characteristic error \(error!)")
             return
         }
-        print("peripheral did update value for characteristic")
+        log.info(message: "peripheral did update value for characteristic")
         guard let value = characteristic.value else {
-            print("failed to get value for characteristic")
+            log.error(message: "failed to get value for characteristic")
             return
         }
         let values = [UInt8](value)
-        print("\(values)")
+        log.info(message: "\(values)")
     }
 
 }
