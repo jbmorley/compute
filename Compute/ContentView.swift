@@ -37,7 +37,13 @@ extension Sheet: Identifiable {
 struct ContentView: View {
 
     @ObservedObject var manager: Manager
+    @ObservedObject var bluetooth: BluetoothManager
     @State var sheet: Sheet?
+
+    init(manager: Manager) {
+        self.manager = manager
+        self.bluetooth = manager.bluetoothManager
+    }
 
     func sheet(sheet: Sheet) -> some View {
         switch sheet {
@@ -53,17 +59,40 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("http://\(manager.address ?? "unknown"):8080")
-                    .padding()
-                Button("Logs") {
-                    sheet = .logs
+                List {
+                    Section(header: Text("WebDAV")) {
+                        HStack {
+                            Text("Address")
+                            Spacer()
+                            Text("http://\(manager.address ?? "unknown"):8080")
+                        }
+                    }
+                    Section(header: Text("Bluetooth")) {
+                        HStack {
+                            Text("Status")
+                            Spacer()
+                            Text(bluetooth.state.description)
+                        }
+                        HStack {
+                            Text("Scanning")
+                            Spacer()
+                            Text(bluetooth.isScanning ? "True" : "False")
+                        }
+                        HStack {
+                            Text("Devices")
+                            Spacer()
+                            Text("Found \(bluetooth.peripherals.count)")
+                        }
+                    }
                 }
-                Spacer()
+                .listStyle(GroupedListStyle())
             }
             .navigationTitle("Compute")
-            .navigationBarItems(leading: Button("Settings", action: {
+            .navigationBarItems(leading: Button("Settings") {
                 sheet = .settings
-            }))
+            }, trailing: Button("Logs") {
+                sheet = .logs
+            })
             .sheet(item: $sheet, content: self.sheet)
         }
         .navigationViewStyle(StackNavigationViewStyle())

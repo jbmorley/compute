@@ -30,12 +30,41 @@ extension CBService {
 
 }
 
+extension CBManagerState: CustomStringConvertible {
+
+    public var description: String {
+        switch self {
+        case .unknown:
+            return "unknown"
+        case .resetting:
+            return "resetting"
+        case .unsupported:
+            return "unsupported"
+        case .unauthorized:
+            return "unauthorized"
+        case .poweredOff:
+            return "poweredOff"
+        case .poweredOn:
+            return "poweredOn"
+        @unknown default:
+            return "default"
+        }
+    }
+
+}
+
 class BluetoothManager: NSObject, ObservableObject {
 
     var log: Log
     var peripheral: CBPeripheral?
     var central: CBCentralManager?
     var peripherals: Set<CBPeripheral> = Set()
+    var isScanning: Bool {
+        central?.isScanning ?? false
+    }
+    var state: CBManagerState {
+        central?.state ?? .unknown
+    }
 
     init(log: Log) {
         self.log = log
@@ -54,6 +83,7 @@ class BluetoothManager: NSObject, ObservableObject {
 extension BluetoothManager: CBCentralManagerDelegate, CBPeripheralDelegate {
 
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        self.objectWillChange.send()
         switch (central.state as CBManagerState) {
         case .unknown:
             log.info(message: "bluetooth central manager state: unknown")
