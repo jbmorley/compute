@@ -2,7 +2,7 @@
 Description=bluetooth-server
 
 [Service]
-WorkingDirectory=/home/pi/Projects/compute/raspberry-pi/bluetooth-server
+WorkingDirectory={{ working_directory }}
 ExecStart=/usr/local/bin/node index.js
 
 [Install]
