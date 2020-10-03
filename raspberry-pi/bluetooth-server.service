@@ -1,0 +1,9 @@
+[Unit]
+Description=bluetooth-server
+
+[Service]
+WorkingDirectory=/home/pi/Projects/compute/raspberry-pi/bluetooth-server
+ExecStart=/usr/local/bin/node index.js
+
+[Install]
+WantedBy=multi-user.target
