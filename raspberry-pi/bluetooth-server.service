@@ -1,5 +1,7 @@
 [Unit]
 Description=bluetooth-server
+Requires=bluetooth.target
+After=bluetooth.target
 
 [Service]
 WorkingDirectory={{ working_directory }}
