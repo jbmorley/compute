@@ -1,9 +1,5 @@
 const bleno = require('bleno');
 
-function toggleState() {
-    console.log("Toggle State!");
-}
-
 bleno.on('stateChange', function(state) {
     console.log('on stateChange: ' + state);
     if (state === 'poweredOn') {
@@ -54,7 +50,6 @@ bleno.on('advertisingStart', function(error) {
             uuid: '2A06',
             properties: ['writeWithoutResponse'],
             onWriteRequest(data, offset, withoutResponse, callback) {
-              toggleState();
               callback(this.RESULT_SUCCESS);
             },
           }),
