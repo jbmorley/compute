@@ -51,6 +51,7 @@
 		D85E58E8252BDD7A0035DDA8 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58E7252BDD7A0035DDA8 /* ActionButtonStyle.swift */; };
 		D85E58ED252BDDBC0035DDA8 /* ActionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58EC252BDDBC0035DDA8 /* ActionGroup.swift */; };
 		D85E58F2252BDE110035DDA8 /* ActionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58F1252BDE110035DDA8 /* ActionMenu.swift */; };
+		D85E58F7252BE5C80035DDA8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58F6252BE5C80035DDA8 /* Settings.swift */; };
 		D8885F5E251D546B00B36653 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */; };
 		D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */; };
 		D8885F68251D60D000B36653 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F67251D60D000B36653 /* Bookmark.swift */; };
@@ -163,6 +164,7 @@
 		D85E58E7252BDD7A0035DDA8 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
 		D85E58EC252BDDBC0035DDA8 /* ActionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionGroup.swift; sourceTree = "<group>"; };
 		D85E58F1252BDE110035DDA8 /* ActionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenu.swift; sourceTree = "<group>"; };
+		D85E58F6252BE5C80035DDA8 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F67251D60D000B36653 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				D85E58E7252BDD7A0035DDA8 /* ActionButtonStyle.swift */,
 				D85E58EC252BDDBC0035DDA8 /* ActionGroup.swift */,
 				D85E58F1252BDE110035DDA8 /* ActionMenu.swift */,
+				D85E58F6252BE5C80035DDA8 /* Settings.swift */,
 			);
 			path = Compute;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				D80E8C7B251B0862001A9FCA /* WebSocket.m in Sources */,
 				D80E8C74251B0862001A9FCA /* HTTPDataResponse.m in Sources */,
 				D85E58DB252BD28A0035DDA8 /* StatusView.swift in Sources */,
+				D85E58F7252BE5C80035DDA8 /* Settings.swift in Sources */,
 				D80E8C76251B0862001A9FCA /* HTTPFileResponse.m in Sources */,
 				D80E8B16251B083A001A9FCA /* ComputeApp.swift in Sources */,
 				D80E8CF1251B0862001A9FCA /* DDFileLogger.m in Sources */,

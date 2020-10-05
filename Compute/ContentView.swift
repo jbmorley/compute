@@ -37,6 +37,8 @@ struct ContentView: View {
     @ObservedObject var bluetooth: BluetoothManager
     @State var sheet: SheetType?
 
+    @StateObject var settings: Settings = Settings()
+
     init(manager: Manager) {
         self.manager = manager
         self.bluetooth = manager.bluetoothManager
@@ -45,7 +47,7 @@ struct ContentView: View {
     func sheet(sheet: SheetType) -> some View {
         switch sheet {
         case .settings:
-            return SettingsView(manager: manager)
+            return SettingsView(manager: manager, settings: settings)
                 .eraseToAnyView()
         case .status:
             return StatusView(manager: manager)
@@ -59,20 +61,22 @@ struct ContentView: View {
                 VStack {
                     ActionMenu {
                         ActionGroup(footer: EmptyView()) {
-                            ActionButton("Terminal", systemName: "terminal") {
-                                var components = URLComponents()
-                                components.scheme = "blinkshell"
-                                components.host = "run"
-                                components.queryItems = [URLQueryItem(name: "key", value: "6A059D"),
-                                                         URLQueryItem(name: "cmd", value: "mosh pi@10.55.0.1")]
-                                guard let url = components.url else {
-                                    print("Failed to generate URL")
-                                    return
+                            if !settings.blinkUrlKey.isEmpty {
+                                ActionButton("Blink", systemName: "terminal") {
+                                    var components = URLComponents()
+                                    components.scheme = "blinkshell"
+                                    components.host = "run"
+                                    components.queryItems = [URLQueryItem(name: "key", value: settings.blinkUrlKey),
+                                                             URLQueryItem(name: "cmd", value: "mosh pi@10.55.0.1")]
+                                    guard let url = components.url else {
+                                        print("Failed to generate URL")
+                                        return
+                                    }
+                                    print(url.absoluteURL)
+                                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                                 }
-                                print(url.absoluteURL)
-                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                                .buttonStyle(ActionButtonStyle(backgroundColor: Color(UIColor.systemFill)))
                             }
-                            .buttonStyle(ActionButtonStyle(backgroundColor: Color(UIColor.systemFill)))
                         }
                     }
                     .padding()

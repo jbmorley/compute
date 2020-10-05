@@ -39,6 +39,7 @@ struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var manager: Manager
     @State var sheet: SettingsSheet?
+    @ObservedObject var settings: Settings
 
     func sheet(sheet: SettingsSheet) -> some View {
         switch sheet {
@@ -75,6 +76,9 @@ struct SettingsView: View {
                     Button("Add Location...") {
                         sheet = .filePicker
                     }
+                }
+                Section(header: Text("Blink Integration")) {
+                    TextField("URL Key", text: $settings.blinkUrlKey)
                 }
             }
             .navigationBarTitle("Settings", displayMode: .inline)
