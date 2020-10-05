@@ -47,6 +47,10 @@
 		D826D41B2523A7110095E358 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D41A2523A7110095E358 /* LogView.swift */; };
 		D826D4202523A7530095E358 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D41F2523A7530095E358 /* View+Extensions.swift */; };
 		D85E58DB252BD28A0035DDA8 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58DA252BD28A0035DDA8 /* StatusView.swift */; };
+		D85E58E3252BDC480035DDA8 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58E2252BDC480035DDA8 /* ActionButton.swift */; };
+		D85E58E8252BDD7A0035DDA8 /* ActionButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58E7252BDD7A0035DDA8 /* ActionButtonStyle.swift */; };
+		D85E58ED252BDDBC0035DDA8 /* ActionGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58EC252BDDBC0035DDA8 /* ActionGroup.swift */; };
+		D85E58F2252BDE110035DDA8 /* ActionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58F1252BDE110035DDA8 /* ActionMenu.swift */; };
 		D8885F5E251D546B00B36653 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */; };
 		D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */; };
 		D8885F68251D60D000B36653 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F67251D60D000B36653 /* Bookmark.swift */; };
@@ -155,6 +159,10 @@
 		D826D41A2523A7110095E358 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		D826D41F2523A7530095E358 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		D85E58DA252BD28A0035DDA8 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		D85E58E2252BDC480035DDA8 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		D85E58E7252BDD7A0035DDA8 /* ActionButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButtonStyle.swift; sourceTree = "<group>"; };
+		D85E58EC252BDDBC0035DDA8 /* ActionGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionGroup.swift; sourceTree = "<group>"; };
+		D85E58F1252BDE110035DDA8 /* ActionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenu.swift; sourceTree = "<group>"; };
 		D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F67251D60D000B36653 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
@@ -232,6 +240,10 @@
 				D826D4152523A3390095E358 /* Log.swift */,
 				D826D41A2523A7110095E358 /* LogView.swift */,
 				D85E58DA252BD28A0035DDA8 /* StatusView.swift */,
+				D85E58E2252BDC480035DDA8 /* ActionButton.swift */,
+				D85E58E7252BDD7A0035DDA8 /* ActionButtonStyle.swift */,
+				D85E58EC252BDDBC0035DDA8 /* ActionGroup.swift */,
+				D85E58F1252BDE110035DDA8 /* ActionMenu.swift */,
 			);
 			path = Compute;
 			sourceTree = "<group>";
@@ -553,6 +565,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D85E58F2252BDE110035DDA8 /* ActionMenu.swift in Sources */,
 				D8E159B0251BCF07009D8A59 /* WebDAVServer.swift in Sources */,
 				D80E8C7F251B0862001A9FCA /* HTTPAuthenticationRequest.m in Sources */,
 				D826D4202523A7530095E358 /* View+Extensions.swift in Sources */,
@@ -560,6 +573,7 @@
 				D80E8C87251B0862001A9FCA /* DELETEResponse.m in Sources */,
 				D8E159A8251BCCFD009D8A59 /* URL+Extensions.swift in Sources */,
 				D80E8CEB251B0862001A9FCA /* ContextFilterLogFormatter.m in Sources */,
+				D85E58ED252BDDBC0035DDA8 /* ActionGroup.swift in Sources */,
 				D826D41B2523A7110095E358 /* LogView.swift in Sources */,
 				D8E159B6251C1B94009D8A59 /* UIDevice+Extensions.swift in Sources */,
 				D80E8B18251B083A001A9FCA /* ContentView.swift in Sources */,
@@ -579,7 +593,9 @@
 				D80E8CF0251B0862001A9FCA /* DDAbstractDatabaseLogger.m in Sources */,
 				D80E8C80251B0862001A9FCA /* DDNumber.m in Sources */,
 				D80E8C75251B0862001A9FCA /* HTTPDynamicFileResponse.m in Sources */,
+				D85E58E8252BDD7A0035DDA8 /* ActionButtonStyle.swift in Sources */,
 				D80E8C77251B0862001A9FCA /* HTTPAsyncFileResponse.m in Sources */,
+				D85E58E3252BDC480035DDA8 /* ActionButton.swift in Sources */,
 				D80E8C7B251B0862001A9FCA /* WebSocket.m in Sources */,
 				D80E8C74251B0862001A9FCA /* HTTPDataResponse.m in Sources */,
 				D85E58DB252BD28A0035DDA8 /* StatusView.swift in Sources */,

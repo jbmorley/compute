@@ -55,15 +55,42 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                EmptyView()
+            ScrollView {
+                VStack {
+                    ActionMenu {
+                        ActionGroup(footer: EmptyView()) {
+                            ActionButton("Terminal", systemName: "terminal") {
+                                var components = URLComponents()
+                                components.scheme = "blinkshell"
+                                components.host = "run"
+                                components.queryItems = [URLQueryItem(name: "key", value: "6A059D"),
+                                                         URLQueryItem(name: "cmd", value: "mosh pi@10.55.0.1")]
+                                guard let url = components.url else {
+                                    print("Failed to generate URL")
+                                    return
+                                }
+                                print(url.absoluteURL)
+                                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                            }
+                            .buttonStyle(ActionButtonStyle(backgroundColor: Color(UIColor.systemFill)))
+                        }
+                    }
+                    .padding()
+                    .frame(maxWidth: 520)
+                }
             }
             .navigationTitle("Compute")
-            .navigationBarItems(leading: Button("Settings") {
+            .navigationBarItems(leading: Button(action: {
                 sheet = .settings
-            }, trailing: Button("Status") {
+            }, label: {
+                Text("Settings")
+                    .fontWeight(.regular)
+            }), trailing: Button(action: {
                 sheet = .status
-            })
+            }, label: {
+                Text("Status")
+                    .fontWeight(.regular)
+            }))
             .sheet(item: $sheet, content: self.sheet)
         }
         .navigationViewStyle(StackNavigationViewStyle())
