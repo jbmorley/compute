@@ -46,6 +46,7 @@
 		D826D4162523A3390095E358 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D4152523A3390095E358 /* Log.swift */; };
 		D826D41B2523A7110095E358 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D41A2523A7110095E358 /* LogView.swift */; };
 		D826D4202523A7530095E358 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D826D41F2523A7530095E358 /* View+Extensions.swift */; };
+		D85E58DB252BD28A0035DDA8 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E58DA252BD28A0035DDA8 /* StatusView.swift */; };
 		D8885F5E251D546B00B36653 /* FileManager+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */; };
 		D8885F63251D54A600B36653 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */; };
 		D8885F68251D60D000B36653 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8885F67251D60D000B36653 /* Bookmark.swift */; };
@@ -153,6 +154,7 @@
 		D826D4152523A3390095E358 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		D826D41A2523A7110095E358 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		D826D41F2523A7530095E358 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		D85E58DA252BD28A0035DDA8 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		D8885F5D251D546B00B36653 /* FileManager+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F62251D54A600B36653 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		D8885F67251D60D000B36653 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				D8CA2D402522F43C00594AD1 /* Manager.swift */,
 				D826D4152523A3390095E358 /* Log.swift */,
 				D826D41A2523A7110095E358 /* LogView.swift */,
+				D85E58DA252BD28A0035DDA8 /* StatusView.swift */,
 			);
 			path = Compute;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				D80E8C77251B0862001A9FCA /* HTTPAsyncFileResponse.m in Sources */,
 				D80E8C7B251B0862001A9FCA /* WebSocket.m in Sources */,
 				D80E8C74251B0862001A9FCA /* HTTPDataResponse.m in Sources */,
+				D85E58DB252BD28A0035DDA8 /* StatusView.swift in Sources */,
 				D80E8C76251B0862001A9FCA /* HTTPFileResponse.m in Sources */,
 				D80E8B16251B083A001A9FCA /* ComputeApp.swift in Sources */,
 				D80E8CF1251B0862001A9FCA /* DDFileLogger.m in Sources */,

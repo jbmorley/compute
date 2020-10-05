@@ -25,33 +25,30 @@
 
 import SwiftUI
 
-enum Sheet {
-    case settings
-    case logs
-}
-
-extension Sheet: Identifiable {
-    public var id: Sheet { self }
-}
-
 struct ContentView: View {
+
+    enum SheetType {
+        case settings
+        case status
+    }
+
 
     @ObservedObject var manager: Manager
     @ObservedObject var bluetooth: BluetoothManager
-    @State var sheet: Sheet?
+    @State var sheet: SheetType?
 
     init(manager: Manager) {
         self.manager = manager
         self.bluetooth = manager.bluetoothManager
     }
 
-    func sheet(sheet: Sheet) -> some View {
+    func sheet(sheet: SheetType) -> some View {
         switch sheet {
         case .settings:
             return SettingsView(manager: manager)
                 .eraseToAnyView()
-        case .logs:
-            return LogView(log: manager.log)
+        case .status:
+            return StatusView(manager: manager)
                 .eraseToAnyView()
         }
     }
@@ -59,42 +56,20 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                List {
-                    Section(header: Text("WebDAV")) {
-                        HStack {
-                            Text("Address")
-                            Spacer()
-                            Text("http://\(manager.address ?? "unknown"):8080")
-                        }
-                    }
-                    Section(header: Text("Bluetooth")) {
-                        HStack {
-                            Text("Status")
-                            Spacer()
-                            Text(bluetooth.state.description)
-                        }
-                        HStack {
-                            Text("Scanning")
-                            Spacer()
-                            Text(bluetooth.isScanning ? "True" : "False")
-                        }
-                        HStack {
-                            Text("Devices")
-                            Spacer()
-                            Text("Found \(bluetooth.peripherals.count)")
-                        }
-                    }
-                }
-                .listStyle(GroupedListStyle())
+                EmptyView()
             }
             .navigationTitle("Compute")
             .navigationBarItems(leading: Button("Settings") {
                 sheet = .settings
-            }, trailing: Button("Logs") {
-                sheet = .logs
+            }, trailing: Button("Status") {
+                sheet = .status
             })
             .sheet(item: $sheet, content: self.sheet)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
+}
+
+extension ContentView.SheetType: Identifiable {
+    public var id: ContentView.SheetType { self }
 }
