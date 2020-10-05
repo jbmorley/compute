@@ -77,8 +77,11 @@ struct SettingsView: View {
                         sheet = .filePicker
                     }
                 }
-                Section(header: Text("Blink Integration")) {
+                Section(header: Text("Blink")) {
                     TextField("URL Key", text: $settings.blinkUrlKey)
+                    Toggle(isOn: $settings.blinkUsesMosh) {
+                        Text("Use Mosh")
+                    }
                 }
             }
             .navigationBarTitle("Settings", displayMode: .inline)

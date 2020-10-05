@@ -63,11 +63,12 @@ struct ContentView: View {
                         ActionGroup(footer: EmptyView()) {
                             if !settings.blinkUrlKey.isEmpty {
                                 ActionButton("Blink", systemName: "terminal") {
+                                    let command = settings.blinkUsesMosh ? "mosh" : "ssh"
                                     var components = URLComponents()
                                     components.scheme = "blinkshell"
                                     components.host = "run"
                                     components.queryItems = [URLQueryItem(name: "key", value: settings.blinkUrlKey),
-                                                             URLQueryItem(name: "cmd", value: "mosh pi@10.55.0.1")]
+                                                             URLQueryItem(name: "cmd", value: "\(command) pi@10.55.0.1")]
                                     guard let url = components.url else {
                                         print("Failed to generate URL")
                                         return
