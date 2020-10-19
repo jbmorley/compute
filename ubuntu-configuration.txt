@@ -1,0 +1,81 @@
+Edit network-config with the correct Wifi settings
+
+---
+
+Add the following at the end of the line in "cmdline.txt" (separated by a space):
+
+modules-load=dwc2
+
+echo "dtoverlay=dwc2" >> usercfg.txt
+echo "enable_uart=0" >> usercfg.txt
+
+---
+
+apt install ifupdown
+apt install dnsmasq
+apt install bluetooth bluez libbluetooth-dev libudev-dev pi-bluetooth
+
+echo "port=0" >> /etc/dnsmasq.conf
+echo "libcomposite" >> /etc/modules
+
+echo "
+interface=usb0
+dhcp-range=10.55.0.2,10.55.0.6,255.255.255.248,1h
+dhcp-option=3
+leasefile-ro
+" > /etc/dnsmasq.d/usb
+
+echo "
+auto usb0
+allow-hotplug usb0
+iface usb0 inet static
+  address 10.55.0.1
+  netmask 255.255.255.248
+" > /etc/network/interfaces.d/usb0
+
+echo '#!/bin/bash
+cd /sys/kernel/config/usb_gadget/
+mkdir -p pi4
+cd pi4
+echo 0x1d6b > idVendor # Linux Foundation
+echo 0x0104 > idProduct # Multifunction Composite Gadget
+echo 0x0100 > bcdDevice # v1.0.0
+echo 0x0200 > bcdUSB # USB2
+echo 0xEF > bDeviceClass
+echo 0x02 > bDeviceSubClass
+echo 0x01 > bDeviceProtocol
+mkdir -p strings/0x409
+echo "fedcba9876543211" > strings/0x409/serialnumber
+echo "PiCompute" > strings/0x409/manufacturer
+echo "PI4 USB Device" > strings/0x409/product
+mkdir -p configs/c.1/strings/0x409
+echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
+echo 250 > configs/c.1/MaxPower
+# Add functions here
+# see gadget configurations below
+# End functions
+mkdir -p functions/ecm.usb0
+HOST="00:dc:c8:f7:75:14" # "HostPC"
+SELF="00:dd:dc:eb:6d:a1" # "BadUSB"
+echo $HOST > functions/ecm.usb0/host_addr
+echo $SELF > functions/ecm.usb0/dev_addr
+ln -s functions/ecm.usb0 configs/c.1/
+udevadm settle -t 5 || :
+ls /sys/class/udc > UDC
+ifup usb0
+service dnsmasq restart
+' > /usr/local/bin/ipad-usb.sh
+
+chmod +x /usr/local/bin/ipad-usb.sh
+
+echo "[Unit]
+After=network.service
+
+[Service]
+ExecStart=/usr/local/bin/ipad-usb.sh
+
+[Install]
+WantedBy=default.target" > /etc/systemd/system/ipad-usb.service
+
+systemctl daemon-reload
+systemctl enable ipad-usb.service

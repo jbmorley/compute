@@ -92,6 +92,10 @@ There are a few steps to follow to make use of the app right now:
          sudo node index.js
          ```
 
+## Raspberry Pi Configuration
+
+We're currently thinking about basing a Raspberry Pi image on the Ubuntu 20.04.1 LTS arm64 build available in the [Raspberry Pi Imager](https://www.raspberrypi.org/downloads/), with a simple post-imaging script which will have everything configured and working on first-boot. None of this is working right now, so the best thing to do is refer to the notes [here](ubuntu-configuration.txt).
+
 ## Background
 
 There are some great guides which describe the process of configuring a Raspberry Pi to use the iPad's USB-C connection for networking:
