@@ -1,5 +1,6 @@
 ansible
 davfs2
+emacs
 git
 git-lfs
 mosh

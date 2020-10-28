@@ -7,3 +7,5 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt update
 sudo apt upgrade -y
 cat "${DIR}/requirements.txt" | xargs sudo apt-get install -y
+
+ansible-playbook "${DIR}/setup.yaml"
