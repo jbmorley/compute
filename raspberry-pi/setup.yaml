@@ -2,6 +2,8 @@
 - name: "Set up Raspberry Pi for Compute"
   hosts: localhost
   connection: local
+  vars:
+    the_user: "{{ ansible_user_id }}"
   tasks:
 
   - name: "Enable dwc2 module"
@@ -53,3 +55,9 @@
       owner: root
       group: root
       mode: '0700'
+
+  - name: Set the shell to ZSH"
+    become: yes
+    user:
+      name: "{{ the_user }}"
+      shell: /bin/zsh
