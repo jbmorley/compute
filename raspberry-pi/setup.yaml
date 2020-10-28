@@ -6,14 +6,14 @@
 
   - name: "Enable dwc2 module"
     lineinfile:
-      path: /boot/cmdline.txt
+      path: /boot/firmware/cmdline.txt
       line: modules-load=dwc2
       create: yes
     become: yes
 
   - name: "Enable dwc2"
     lineinfile:
-      path: /boot/usercfg.txt
+      path: /boot/firmware/usercfg.txt
       regex: '^dtoverlay='
       line: dtoverlay=dwc2
       create: yes
@@ -21,8 +21,27 @@
 
   - name: "Disable serial console"
     lineinfile:
-      path: /boot/usercfg.txt  
+      path: /boot/firmware/usercfg.txt  
       regex: '^enable_uart='
       line: enable_uart=0
       create: yes
     become: yes
+
+  - name: "Set Dnsmasq port"
+    become: yes
+    lineinfile:
+      path: /etc/dnsmasq.conf
+      regex: '^port='
+      line: port=0
+
+  - name: "Add libcomposite kernel module"
+    become: yes
+    lineinfile:
+      path: /etc/modules
+      line: libcomposite
+
+  - name: "Enable libcomposite kernel module"
+    become: yes
+    modprobe:
+      name: libcomposite
+
