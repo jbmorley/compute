@@ -45,3 +45,11 @@
     modprobe:
       name: libcomposite
 
+  - name: "Copy the USB setup script"
+    become: yes
+    copy:
+      src: ipad-usb.sh
+      dest: /usr/local/bin/ipad-usb.sh
+      owner: root
+      group: root
+      mode: '0700'
