@@ -10,3 +10,19 @@
       line: modules-load=dwc2
       create: yes
     become: yes
+
+  - name: "Enable dwc2"
+    lineinfile:
+      path: /boot/usercfg.txt
+      regex: '^dtoverlay='
+      line: dtoverlay=dwc2
+      create: yes
+    become: yes
+
+  - name: "Disable serial console"
+    lineinfile:
+      path: /boot/usercfg.txt  
+      regex: '^enable_uart='
+      line: enable_uart=0
+      create: yes
+    become: yes

@@ -1,7 +1,14 @@
 ansible
+bluetooth
+bluez
 davfs2
+dnsmasq
 emacs
 git
 git-lfs
+ifupdown
+libbluetooth-dev
+libudev-dev
 mosh
+pi-bluetooth
 zsh
