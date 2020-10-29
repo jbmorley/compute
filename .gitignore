@@ -1,2 +1,4 @@
 node_modules
 *~
+/raspberry-pi/output-arm-image
+/raspberry-pi/packer_cache

@@ -1,0 +1,6 @@
+git
+golang
+kpartx
+qemu-user-static
+unzip
+wget
