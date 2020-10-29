@@ -1,0 +1,15 @@
+[Unit]
+72
+After=network.service
+73
+
+74
+[Service]
+75
+ExecStart=/usr/local/bin/ipad-usb.sh
+76
+
+77
+[Install]
+78
+WantedBy=default.target

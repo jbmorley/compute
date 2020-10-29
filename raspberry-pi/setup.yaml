@@ -47,6 +47,22 @@
     modprobe:
       name: libcomposite
 
+  - name: "USB DNS configuration"
+    become: yes
+    copy:
+      src: usb
+      dest: /etc/dnsmasq.d/usb
+      owner: root
+      group: root
+
+  - name: "USB network interface"
+    become: yes
+    copy:
+      src: usb0
+      dest: /etc/network/interfaces.d/usb0
+      owner: root
+      group: root
+
   - name: "Copy the USB setup script"
     become: yes
     copy:
@@ -56,7 +72,22 @@
       group: root
       mode: '0700'
 
-  - name: Set the shell to ZSH"
+  - name: "Create the iPad USB service"
+    become: yes
+    copy:
+      src: ipad-usb.service
+      dest: /etc/systemd/system/ipad-usb.service
+      owner: root
+      group: root
+
+  - name: "Enable the iPad USB service"
+    become: yes
+    systemd:
+      name: ipad-usb
+      enabled: yes
+      daemon_reload: yes
+
+  - name: "Set the shell to ZSH"
     become: yes
     user:
       name: "{{ the_user }}"
