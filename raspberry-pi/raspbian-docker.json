@@ -15,7 +15,9 @@
        "type": "shell",
        "inline": [
          "touch /boot/ssh",
-         "apt-get update"
+         "apt-get update",
+         "curl -sSL https://get.docker.com | sh",
+         "sudo usermod -aG docker pi"
        ]
      }
    ]

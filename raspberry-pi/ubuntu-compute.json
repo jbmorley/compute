@@ -1,0 +1,42 @@
+{
+    "variables": {
+    },
+    "builders": [
+        {
+            "type": "arm-image",
+            "image_type": "raspberrypi",
+            "qemu_binary": "qemu-aarch64-static",
+            "iso_url": "https://cdimage.ubuntu.com/releases/20.04.1/release/ubuntu-20.04.1-preinstalled-server-arm64+raspi.img.xz",
+            "iso_checksum_type": "sha256",
+            "iso_checksum": "aadc64a1d069c842e56a4289fe1a6b4b5a0af4efcf95bcce78eb2a80fe5270f4",
+            "image_mounts": ["/boot/firmware", "/"],
+            "chroot_mounts": [
+                ["proc", "proc", "/proc"],
+                ["sysfs", "sysfs", "/sys"],
+                ["bind", "/dev", "/dev"],
+                ["devpts", "devpts", "/dev/pts"],
+                ["binfmt_misc", "binfmt_misc", "/proc/sys/fs/binfmt_misc"],
+                ["bind", "/run/resolvconf", "/run/resolvconf"]
+            ]
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "mkdir -p /usr/local/src/compute-tools"
+            ]
+        },
+        {
+            "type": "file",
+            "source": "compute-tools/",
+            "destination": "/usr/local/src/compute-tools"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "/usr/local/src/compute-tools/setup.sh"
+            ]
+        }
+    ]
+}
