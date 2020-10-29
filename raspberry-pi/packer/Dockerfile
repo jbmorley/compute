@@ -7,9 +7,9 @@ ARG ubuntu_version
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update
 WORKDIR /tmp/
-COPY packer/requirements.txt .
+COPY requirements.txt .
+RUN apt-get update --fix-missing
 RUN bash -c "cat requirements.txt | xargs apt-get install -y"
 
 ENV PACKER_DIR /usr/local/packer
@@ -27,3 +27,6 @@ RUN git checkout b1c268e9d33105634c899e9095f0af097e1af432
 RUN go mod download
 RUN go build
 RUN cp packer-builder-arm-image "${PACKER_DIR}"
+
+ENV UTILITIES_DIR /usr/local/packer-utilities
+COPY container-run-packer.sh ${UTILITIES_DIR}/

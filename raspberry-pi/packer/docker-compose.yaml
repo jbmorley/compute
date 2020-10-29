@@ -5,8 +5,8 @@ services:
   packer:
     image: packer:default
     build:
-      context: ..
-      dockerfile: packer/Dockerfile
+      context: .
+      dockerfile: Dockerfile
 
   common: &common
     image: packer:default
@@ -14,12 +14,13 @@ services:
     volumes:
       - ${WORKING_DIR}:${WORKING_DIR}
     working_dir: ${WORKING_DIR}
+    privileged: true
 
   shell:
     <<: *common
     entrypoint: /bin/bash
 
-  # build:
-  #   <<: *common
-  #   tty: true
-  #   entrypoint: python3 /usr/local/src/incontext/incontext.py
+  command:
+    <<: *common
+    tty: true
+    entrypoint: /bin/bash /usr/local/packer-utilities/container-run-packer.sh
