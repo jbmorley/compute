@@ -92,9 +92,24 @@ There are a few steps to follow to make use of the app right now:
          sudo node index.js
          ```
 
-## Raspberry Pi Configuration
+## Raspberry Pi Setup
 
-We're currently thinking about basing a Raspberry Pi image on the Ubuntu 20.04.1 LTS arm64 build available in the [Raspberry Pi Imager](https://www.raspberrypi.org/downloads/), with a simple post-imaging script which will have everything configured and working on first-boot. None of this is working right now, so the best thing to do is refer to the notes [here](ubuntu-configuration.txt).
+Until we provide a pre-built image for the Raspberry Pi, it's necessary to perform a few steps to correctly configure your Raspberry Pi:
+
+- Clone the repository:
+
+  ```bash
+  git clone git@github.com:jbmorley/compute.git
+  cd compute
+  git submodule update --init
+  ```
+
+- Install the required dependencies and configuration (this uses Ansible under the hood):
+
+  ```bash
+  cd raspberry-pi/compute-tools
+  ./setup.sh
+  ```
 
 ## Background
 
