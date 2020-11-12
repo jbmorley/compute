@@ -99,3 +99,39 @@
       path: /etc/default/motd-news
       regex: '^ENABLED='
       line: ENABLED=0
+
+  - name: "Copy the SMB share configuration"
+    become: yes
+    copy:
+      src: smb-compute-home.conf
+      dest: /etc/samba/smb-compute-home.conf
+      owner: root
+      group: root
+
+  - name: "Enable SMB share"
+    lineinfile:
+      path: /etc/samba/smb.conf
+      line: include = /etc/samba/smb-compute-home.conf
+      create: yes
+    become: yes
+    notify: Restart Samba
+
+  - name: "Get the current Samba users"
+    shell: "pdbedit -L | sed 's/:.*$//'"
+    become: yes
+    register: samba_users
+    changed_when: no
+
+  - name: "Add SMB user"
+    shell: "printf 'password\npassword\n' | smbpasswd -a ubuntu"
+    become: yes
+    when: not "ubuntu" in samba_users.stdout_lines
+    notify: Restart Samba
+
+  handlers:
+
+  - name: Restart Samba
+    become: yes
+    service:
+      name: smbd
+      state: restarted
