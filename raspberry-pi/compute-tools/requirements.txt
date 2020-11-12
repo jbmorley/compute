@@ -12,4 +12,7 @@ libudev-dev
 lolcat
 mosh
 pi-bluetooth
+python3-pip
+samba
+samba-common-bin
 zsh
