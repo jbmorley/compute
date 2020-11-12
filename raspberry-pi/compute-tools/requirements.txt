@@ -9,6 +9,7 @@ git-lfs
 ifupdown
 libbluetooth-dev
 libudev-dev
+lolcat
 mosh
 pi-bluetooth
 zsh

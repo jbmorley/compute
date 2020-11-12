@@ -92,3 +92,10 @@
     user:
       name: "{{ the_user }}"
       shell: /bin/zsh
+
+  - name: "Disable MOTD"
+    become: yes
+    lineinfile:
+      path: /etc/default/motd-news
+      regex: '^ENABLED='
+      line: ENABLED=0
