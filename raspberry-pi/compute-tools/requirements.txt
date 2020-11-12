@@ -11,7 +11,9 @@ libbluetooth-dev
 libudev-dev
 lolcat
 mosh
+nginx
 pi-bluetooth
+pipenv
 python3-pip
 samba
 samba-common-bin
