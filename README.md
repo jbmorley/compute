@@ -49,33 +49,26 @@ There are a few steps to follow to make use of the app right now:
 
    5. Set up the Raspberry Pi to connect to your iOS device over WebDAV:
 
-      1. Install `davfs2`
-
-         ```bash
-         sudo apt update
-         sudo apt install davfs2
-         ```
-
-      2. Create a new mount point:
+      1. Create a new mount point:
 
          ```bash
          sudo mkdir /mnt/webdav
          ```
 
-      3. Add the following entry to `/etc/fstab`:
+      2. Add the following entry to `/etc/fstab`:
 
          ```
          # iPad
          http://10.55.0.5:8080/ /mnt/webdav davfs _netdev,noauto,user,uid=pi,gid=pi 0 0
          ```
 
-      4. Start the mount:
+      3. Start the mount:
 
          ```bash
          sudo mount /mnt/webdav
          ```
          
-      5. Install and run the Bluetooth keep-alive server. Unforutnately this requires dropping back to an earlier version of Node.js to address some dependency incompatibilities (see https://github.com/noble/bleno/issues/440):
+      4. Install and run the Bluetooth keep-alive server. Unforutnately this requires dropping back to an earlier version of Node.js to address some dependency incompatibilities (see https://github.com/noble/bleno/issues/440):
       
          ```bash
          sudo npm install -g n
@@ -94,7 +87,7 @@ There are a few steps to follow to make use of the app right now:
 
 ## Raspberry Pi Setup
 
-Until we provide a pre-built image for the Raspberry Pi, it's necessary to perform a few steps to correctly configure your Raspberry Pi:
+Until we provide a pre-built image for the Raspberry Pi, it's necessary to perform a few steps to correctly configure your Raspberry Pi. This will install the required dependenices, a number of tools suited to development, and set up the USB-C networking and bluetooth server:
 
 - Clone the repository:
 
