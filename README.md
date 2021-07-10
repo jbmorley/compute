@@ -1,8 +1,8 @@
+_Compute is no longer under active development. While it was a fun experiment to see what can be done by working around the iOS restrictions to unlock a full Linux computing environment, projects like [UTM](https://getutm.app) (although requiring side-loading) offer far more practical and comprehensive approaches._
+
 # Compute
 
 iOS application for using a Raspberry Pi as a compute module
-
-_Compute is no longer under active development._
 
 ## Summary
 
