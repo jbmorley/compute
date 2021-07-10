@@ -1,4 +1,4 @@
-_Compute is no longer under active development. While it was a fun experiment to see what can be done by working around the iOS restrictions to unlock a full Linux computing environment, projects like [UTM](https://getutm.app) (although requiring side-loading) offer far more practical and comprehensive approaches._
+_Compute is no longer under active development. While it was a fun experiment to see what can be done to working around the iOS restrictions and provide a full Linux computing environment, projects like [UTM](https://getutm.app) (although requiring side-loading) offer far more practical and comprehensive approaches, and don't require any hardware._
 
 # Compute
 
